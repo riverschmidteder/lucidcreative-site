@@ -1,0 +1,109 @@
+/* site.css: the look of the Lucid Creative LLC site and the Match! pages.
+   No scripts, no outside fonts, nothing that tracks. The colors come from the game: the navy of its logo and the five tile colors. */
+:root {
+  --bg-top: #121a58;
+  --bg-bottom: #070a26;
+  --ink: #f5f7ff;
+  --muted: #c3caee;
+  --faint: #9aa4d6;
+  --card: rgba(255, 255, 255, .07);
+  --line: rgba(255, 255, 255, .16);
+  --terra: #de8663;
+  --green: #72c85f;
+  --purple: #ad84d6;
+  --gold: #f2c14f;
+  --teal: #66bccb;
+  --radius: 18px;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  background: var(--bg-bottom) linear-gradient(180deg, var(--bg-top) 0, var(--bg-bottom) 700px) no-repeat;
+  font: 18px/1.6 ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+}
+
+a { color: var(--gold); text-underline-offset: .18em; }
+a:hover { color: #ffd978; }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+img { max-width: 100%; height: auto; }
+main { flex: 1; }
+.wrap { width: 100%; max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Header and menu */
+header.site { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+header.site .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1.5rem; }
+.brand { display: inline-flex; align-items: center; gap: .6rem; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 1.12rem; letter-spacing: .01em; }
+.brand svg { width: 30px; height: 30px; flex: none; }
+nav.site { display: flex; flex-wrap: wrap; gap: .1rem 1.3rem; }
+nav.site a { color: var(--muted); text-decoration: none; padding: .25rem 0; border-bottom: 2px solid transparent; }
+nav.site a:hover, nav.site a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--gold); }
+
+/* Top of a page: a faint honeycomb that fades out, and a row of tiles */
+.hero { position: relative; padding: 4.2rem 0 3rem; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23ffffff' stroke-opacity='.09'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23ffffff' stroke-opacity='.09'/%3E%3C/svg%3E");
+  -webkit-mask-image: linear-gradient(180deg, #000 0, transparent 92%);
+  mask-image: linear-gradient(180deg, #000 0, transparent 92%);
+  pointer-events: none;
+}
+.hero .wrap { position: relative; }
+.hero h1 { margin: 0 0 .5rem; font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; letter-spacing: -.01em; }
+.hero h1 img { display: block; width: min(34rem, 100%); border-radius: 20px; }
+.lead { margin: 0; font-size: clamp(1.15rem, 2.6vw, 1.45rem); color: var(--muted); max-width: 40rem; }
+.tiles { display: flex; gap: 7px; margin-bottom: 1.4rem; }
+.tiles i { display: block; width: 24px; height: 24px; border-radius: 7px; box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .2), inset 0 2px 0 rgba(255, 255, 255, .28); }
+
+/* Sections */
+section.block { padding-top: 2.2rem; padding-bottom: .6rem; }
+section.block h2 { margin: 0 0 1rem; font-size: 1.5rem; }
+.product { display: grid; grid-template-columns: auto 1fr; gap: 1.6rem; align-items: center; padding: 1.6rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+.product img { width: 128px; height: 128px; border-radius: 28px; box-shadow: 0 10px 30px rgba(0, 0, 0, .4); }
+.product h3 { margin: 0 0 .3rem; font-size: 1.6rem; }
+.product p { margin: .35rem 0; color: var(--muted); }
+
+/* Little labels and buttons */
+.pill { display: inline-block; padding: .3rem .95rem; border-radius: 999px; background: rgba(242, 193, 79, .15); color: var(--gold); border: 1px solid rgba(242, 193, 79, .5); font-weight: 700; font-size: .95rem; }
+.button { display: inline-block; margin-top: .4rem; padding: .7rem 1.3rem; border-radius: 999px; background: var(--gold); color: #2b1d00; font-weight: 700; text-decoration: none; }
+.button:hover { background: #ffd978; color: #2b1d00; }
+
+/* Feature cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16.5rem, 1fr)); gap: 1rem; }
+.card { padding: 1.2rem 1.3rem 1.3rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+.card .tile { display: block; width: 26px; height: 26px; border-radius: 8px; box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .2), inset 0 2px 0 rgba(255, 255, 255, .28); }
+.card h3 { margin: .8rem 0 .3rem; font-size: 1.15rem; }
+.card p { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
+
+/* Plain reading pages: privacy and support */
+.prose { max-width: 44rem; padding-top: 2.6rem; padding-bottom: 2rem; }
+.prose h1 { margin: 0 0 .4rem; font-size: clamp(1.9rem, 5vw, 2.5rem); line-height: 1.15; }
+.prose h2 { margin: 2.2rem 0 .6rem; font-size: 1.3rem; }
+.prose p, .prose li { color: var(--muted); }
+.prose li { margin: .5rem 0; }
+.prose strong { color: var(--ink); }
+.prose .meta { color: var(--faint); }
+.facts { margin: 1.2rem 0 0; padding: 1rem 1.2rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+.facts p { margin: .2rem 0; }
+
+/* Footer */
+footer.site { margin-top: 3rem; padding: 1.6rem 0 2.2rem; border-top: 1px solid var(--line); color: var(--faint); font-size: .95rem; }
+footer.site p { margin: .3rem 0; }
+footer.site a { color: var(--muted); }
+
+@media (max-width: 600px) {
+  body { font-size: 17px; }
+  .hero { padding: 2.6rem 0 2rem; }
+  .product { grid-template-columns: 1fr; text-align: left; padding: 1.3rem; }
+  .product img { width: 104px; height: 104px; border-radius: 23px; }
+}
