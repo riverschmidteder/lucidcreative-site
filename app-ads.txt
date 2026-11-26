@@ -1,2 +1,2 @@
-# Lucid Creative LLC: the ad seller that may sell ads in Match! (Google AdMob).
+# Lucid Creative LLC: the ad seller that may sell ads in NatMatch! (Google AdMob).
 google.com, pub-9821042312305903, DIRECT, f08c47fec0942fa0
