@@ -1,20 +1,33 @@
-/* site.css: the look of the Lucid Creative LLC site and the NatMatch! pages.
-   No scripts, no outside fonts, nothing that tracks. The colors come from the game: the navy of its logo and the five tile colors. */
+/* site.css: the look of lucidcreative.associates, the home of NatMatch! (River, 28 November 2026: "We also need to overhaul the website so that it uses
+   the graphics and text for NatMatch"). It is the game's own look: the sky and the painted Pine Forest of the menu at the top of every page (pictures
+   drawn by the game's code, `WebsitePicturesTests`), the name in the honeycomb tiles of the logo, cream like pale wood under it, the woods of the
+   game's pieces for the little tiles, honey gold for buttons, and the dark wood of the board at the foot. No scripts, no outside fonts, nothing that
+   tracks. (Until 28 November 2026 the site was navy, from the old Match! logo.) */
 :root {
-  --bg-top: #121a58;
-  --bg-bottom: #070a26;
-  --ink: #f5f7ff;
-  --muted: #c3caee;
-  --faint: #9aa4d6;
-  --card: rgba(255, 255, 255, .07);
-  --line: rgba(255, 255, 255, .16);
-  --terra: #de8663;
-  --green: #72c85f;
-  --purple: #ad84d6;
-  --gold: #f2c14f;
-  --teal: #66bccb;
-  --radius: 18px;
-  color-scheme: dark;
+  --sky: #3873cc;
+  --sky-light: #73a8e6;
+  --cream: #fbf6ec;
+  --paper: #ffffff;
+  --ink: #2f2418;
+  --muted: #5c4d3d;
+  --faint: #8a7a66;
+  --line: rgba(47, 36, 24, .13);
+  --board: #2b1f15;
+  --board-light: #46331f;
+  --honey: #e0ad4d;
+  --honey-deep: #9a6a12;
+  --forest: #1f4a2a;
+  /* The woods of the game's pieces (HoneyShape.woodColor). */
+  --branch: #cc7354;
+  --leaf: #e0ad4d;
+  --reed: #78b361;
+  --sprig: #579eb3;
+  --crook: #4d80c7;
+  --tripod: #9466b3;
+  --fern: #e0758f;
+  --bloom: #b34d66;
+  --radius: 20px;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -26,84 +39,130 @@ body {
   display: flex;
   flex-direction: column;
   color: var(--ink);
-  background: var(--bg-bottom) linear-gradient(180deg, var(--bg-top) 0, var(--bg-bottom) 700px) no-repeat;
+  background: var(--cream);
   font: 18px/1.6 ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
 }
 
-a { color: var(--gold); text-underline-offset: .18em; }
-a:hover { color: #ffd978; }
-:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+a { color: var(--honey-deep); text-underline-offset: .18em; }
+a:hover { color: #7a5108; }
+:focus-visible { outline: 3px solid var(--crook); outline-offset: 3px; border-radius: 6px; }
 img { max-width: 100%; height: auto; }
 main { flex: 1; }
-.wrap { width: 100%; max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wrap { width: 100%; max-width: 64rem; margin: 0 auto; padding: 0 1.25rem; }
+.hidden-symbols { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* The sky: the Pine Forest as the game's menu paints it, behind the header and the top of the page. */
+.sky {
+  position: relative;
+  color: #fff;
+  background: var(--sky) url("img/hero-forest.jpg") center bottom / cover no-repeat;
+}
+.sky.short { background-position: center 78%; }
+.sky a { color: #fff; }
 
 /* Header and menu */
-header.site { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+header.site { padding: 1rem 0; }
 header.site .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1.5rem; }
-.brand { display: inline-flex; align-items: center; gap: .6rem; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 1.12rem; letter-spacing: .01em; }
-.brand svg { width: 30px; height: 30px; flex: none; }
+.brand { display: inline-flex; align-items: center; gap: .55rem; color: #fff; text-decoration: none; font-weight: 800; font-size: 1.12rem; letter-spacing: .01em; text-shadow: 0 1px 3px rgba(0, 0, 0, .35); }
+.brand svg { width: 34px; height: 30px; flex: none; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); }
 nav.site { display: flex; flex-wrap: wrap; gap: .1rem 1.3rem; }
-nav.site a { color: var(--muted); text-decoration: none; padding: .25rem 0; border-bottom: 2px solid transparent; }
-nav.site a:hover, nav.site a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--gold); }
+nav.site a { color: rgba(255, 255, 255, .88); text-decoration: none; font-weight: 700; padding: .25rem 0; border-bottom: 3px solid transparent; text-shadow: 0 1px 3px rgba(0, 0, 0, .35); }
+nav.site a:hover, nav.site a[aria-current="page"] { color: #fff; border-bottom-color: var(--honey); }
 
-/* Top of a page: a faint honeycomb that fades out, and a row of tiles */
-.hero { position: relative; padding: 4.2rem 0 3rem; }
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23ffffff' stroke-opacity='.09'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23ffffff' stroke-opacity='.09'/%3E%3C/svg%3E");
-  -webkit-mask-image: linear-gradient(180deg, #000 0, transparent 92%);
-  mask-image: linear-gradient(180deg, #000 0, transparent 92%);
-  pointer-events: none;
-}
-.hero .wrap { position: relative; }
-.hero h1 { margin: 0 0 .5rem; font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; letter-spacing: -.01em; }
-.hero h1 img { display: block; width: min(34rem, 100%); border-radius: 20px; }
-.lead { margin: 0; font-size: clamp(1.15rem, 2.6vw, 1.45rem); color: var(--muted); max-width: 40rem; }
-.tiles { display: flex; gap: 7px; margin-bottom: 1.4rem; }
-.tiles i { display: block; width: 24px; height: 24px; border-radius: 7px; box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .2), inset 0 2px 0 rgba(255, 255, 255, .28); }
+/* The top of the home page and the game's page: the logo in the sky. */
+.hero { padding: 3.2rem 0 7.5rem; text-align: center; }
+.hero h1 { margin: 0 auto; max-width: 54rem; }
+.hero h1 img { display: block; width: 100%; filter: drop-shadow(0 6px 14px rgba(20, 40, 90, .25)); }
+.lead { margin: 1rem auto 0; max-width: 46rem; font-size: clamp(1.2rem, 2.8vw, 1.55rem); font-weight: 700; line-height: 1.4; text-shadow: 0 1px 4px rgba(10, 30, 70, .55); }
+.soon { display: inline-flex; align-items: center; gap: .9rem; margin-top: 1.7rem; padding: .55rem 1.3rem .55rem .55rem; border-radius: 26px; background: rgba(255, 255, 255, .94); color: var(--ink); box-shadow: 0 8px 24px rgba(20, 40, 90, .25); text-align: left; }
+.soon img { width: 56px; height: 56px; border-radius: 13px; }
+.soon > span { display: block; }
+.soon strong { display: block; font-size: 1.05rem; line-height: 1.25; color: var(--ink); }
+.soon small { display: block; font-size: .9rem; color: var(--muted); line-height: 1.3; }
+
+/* On a plain page (Support, Privacy) the sky is a strip under the header, with the tops of the hills. */
+.band { height: 3.4rem; }
+
+/* Phones with the game's screens, standing on the edge of the sky. */
+.phones { display: flex; justify-content: center; align-items: flex-end; gap: clamp(.8rem, 3vw, 2.2rem); margin-top: -6rem; padding: 0 1rem; position: relative; }
+.phone { margin: 0; width: min(15.5rem, 30vw); border-radius: 2.4rem; padding: .45rem; background: #15151a; box-shadow: 0 20px 44px rgba(30, 25, 15, .35), inset 0 0 0 1px rgba(255, 255, 255, .12); }
+.phone img { display: block; width: 100%; border-radius: 2rem; }
+.phone.middle { width: min(17rem, 34vw); }
+.phones figcaption { margin-top: .6rem; text-align: center; font-size: .9rem; color: var(--muted); font-weight: 700; }
 
 /* Sections */
-section.block { padding-top: 2.2rem; padding-bottom: .6rem; }
-section.block h2 { margin: 0 0 1rem; font-size: 1.5rem; }
-.product { display: grid; grid-template-columns: auto 1fr; gap: 1.6rem; align-items: center; padding: 1.6rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
-.product img { width: 128px; height: 128px; border-radius: 28px; box-shadow: 0 10px 30px rgba(0, 0, 0, .4); }
-.product h3 { margin: 0 0 .3rem; font-size: 1.6rem; }
-.product p { margin: .35rem 0; color: var(--muted); }
+section.block { padding-top: 3.4rem; padding-bottom: .4rem; }
+section.block h2 { margin: 0 0 .5rem; font-size: clamp(1.6rem, 4vw, 2.1rem); line-height: 1.2; }
+section.block .intro { margin: 0 0 1.6rem; max-width: 42rem; color: var(--muted); }
+.kicker { display: flex; gap: 6px; margin-bottom: .8rem; }
+.kicker svg { width: 22px; height: 25px; }
 
-/* Little labels and buttons */
-.pill { display: inline-block; padding: .3rem .95rem; border-radius: 999px; background: rgba(242, 193, 79, .15); color: var(--gold); border: 1px solid rgba(242, 193, 79, .5); font-weight: 700; font-size: .95rem; }
-.button { display: inline-block; margin-top: .4rem; padding: .7rem 1.3rem; border-radius: 999px; background: var(--gold); color: #2b1d00; font-weight: 700; text-decoration: none; }
-.button:hover { background: #ffd978; color: #2b1d00; }
+/* The three steps of a game */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; }
+.step { padding: 1.3rem 1.3rem 1.4rem; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 6px 18px rgba(60, 40, 20, .06); }
+.step svg { display: block; width: 100%; height: auto; aspect-ratio: 300 / 118; margin-bottom: .6rem; border-radius: 14px; background: linear-gradient(180deg, var(--sky), var(--sky-light)); }
+.step h3 { margin: 0 0 .25rem; font-size: 1.2rem; }
+.step h3 b { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; margin-right: .45rem; border-radius: 50%; background: var(--honey); color: #3a2600; font-size: .95rem; vertical-align: .1em; }
+.step p { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
 
-/* Feature cards */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16.5rem, 1fr)); gap: 1rem; }
-.card { padding: 1.2rem 1.3rem 1.3rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
-.card .tile { display: block; width: 26px; height: 26px; border-radius: 8px; box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .2), inset 0 2px 0 rgba(255, 255, 255, .28); }
-.card h3 { margin: .8rem 0 .3rem; font-size: 1.15rem; }
+/* The worlds, each in its own scenery */
+.worlds { display: grid; grid-template-columns: repeat(5, 1fr); gap: .9rem; margin: 0; padding: 0; list-style: none; }
+.worlds li { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 3 / 4; background: #3c5a78; box-shadow: 0 6px 16px rgba(40, 30, 15, .18); }
+.worlds img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.worlds span { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.6rem .7rem .6rem; color: #fff; font-weight: 800; font-size: .98rem; line-height: 1.2; background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .62)); }
+.worlds span small { display: block; font-size: .78rem; font-weight: 700; opacity: .85; }
+.worlds.six { grid-template-columns: repeat(6, 1fr); }
+
+/* Feature cards, each with a little cluster of wooden tiles */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.card { padding: 1.2rem 1.3rem 1.3rem; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 6px 18px rgba(60, 40, 20, .06); }
+.card svg { width: 46px; height: 40px; }
+.card h3 { margin: .55rem 0 .3rem; font-size: 1.15rem; }
 .card p { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
+.card ul { margin: .4rem 0 0; padding-left: 1.1rem; color: var(--muted); font-size: 1rem; line-height: 1.5; }
+
+/* A wide panel of dark board wood */
+.panel { margin-top: 3.4rem; padding: 2.4rem 0 2.6rem; color: #f6ecdc; background: var(--board) linear-gradient(180deg, var(--board-light), var(--board)); }
+.panel h2 { margin: 0 0 .6rem; font-size: clamp(1.5rem, 3.6vw, 1.9rem); }
+.panel p { margin: .5rem 0; max-width: 44rem; color: #e5d6bf; }
+.panel a { color: var(--honey); }
+.panel .studio { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem 1.8rem; }
+.panel .studio svg { width: 82px; height: 72px; flex: none; }
+
+/* Buttons */
+.button { display: inline-block; margin-top: .6rem; padding: .7rem 1.35rem; border-radius: 999px; background: var(--honey); color: #3a2600; font-weight: 800; text-decoration: none; box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18); }
+.button:hover { background: #ebbd62; color: #3a2600; }
 
 /* Plain reading pages: privacy and support */
-.prose { max-width: 44rem; padding-top: 2.6rem; padding-bottom: 2rem; }
-.prose h1 { margin: 0 0 .4rem; font-size: clamp(1.9rem, 5vw, 2.5rem); line-height: 1.15; }
+.prose { max-width: 46rem; padding-top: 2.2rem; padding-bottom: 2rem; }
 .prose h2 { margin: 2.2rem 0 .6rem; font-size: 1.3rem; }
 .prose p, .prose li { color: var(--muted); }
 .prose li { margin: .5rem 0; }
 .prose strong { color: var(--ink); }
 .prose .meta { color: var(--faint); }
-.facts { margin: 1.2rem 0 0; padding: 1rem 1.2rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+.prose h1 { margin: 0 0 .4rem; font-size: clamp(1.9rem, 5vw, 2.5rem); line-height: 1.15; }
+.facts { margin: 1.2rem 0 0; padding: 1rem 1.2rem; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
 .facts p { margin: .2rem 0; }
 
-/* Footer */
-footer.site { margin-top: 3rem; padding: 1.6rem 0 2.2rem; border-top: 1px solid var(--line); color: var(--faint); font-size: .95rem; }
+/* Footer: the dark wood of the board */
+footer.site { margin-top: 3.4rem; padding: 1.8rem 0 2.4rem; background: var(--board); color: #cdbba1; font-size: .95rem; }
+.panel + footer.site { margin-top: 0; border-top: 1px solid rgba(255, 255, 255, .08); }
 footer.site p { margin: .3rem 0; }
-footer.site a { color: var(--muted); }
+footer.site a { color: #f0dcb8; }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
+  .worlds { grid-template-columns: repeat(4, 1fr); }
+  .worlds.six { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
   body { font-size: 17px; }
-  .hero { padding: 2.6rem 0 2rem; }
-  .product { grid-template-columns: 1fr; text-align: left; padding: 1.3rem; }
-  .product img { width: 104px; height: 104px; border-radius: 23px; }
+  header.site .wrap { justify-content: center; }
+  .hero { padding: 2rem 0 5.5rem; }
+  .soon img { width: 48px; height: 48px; border-radius: 11px; }
+  .phones { margin-top: -4.2rem; gap: .5rem; }
+  .phone { border-radius: 1.5rem; padding: .28rem; }
+  .phone img { border-radius: 1.25rem; }
+  .phones figcaption { font-size: .78rem; }
+  .worlds, .worlds.six { grid-template-columns: repeat(2, 1fr); gap: .7rem; }
 }
